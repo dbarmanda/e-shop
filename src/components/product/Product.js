@@ -38,7 +38,7 @@ function Product(props) {
         <ReactStars edit={false} value={rating} isHalf={true} size={window.innerWidth < 600 ? 20: 25} /> <span>{numOfReviews} reviews</span>
         </div>
       </div> 
-<Link to={id}><img className="product_image" src={image} alt="product" /> </Link>
+<Link to={`/product/${id}`}><img className="product_image" src={image} alt="product" /> </Link>
       
       <button onClick={addToKart}>Add to Basket</button>
     </div>

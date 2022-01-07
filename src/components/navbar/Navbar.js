@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import "./navbar.css";
 import logo from "./logo1.png";
 import { Link } from "react-router-dom";
@@ -9,12 +9,18 @@ import LocalGroceryStoreIcon from '@mui/icons-material/LocalGroceryStore';
 import FlagIcon from '@mui/icons-material/Flag';
 import  {useSelector} from "react-redux";
 
-//redux store 
-
+//for filteration & pagination 
 
 
 function Navbar() {
 
+  const [keyword, setKeyword] = useState('');
+  const searchSubmitHandler = (e)=> {
+    // console.log(keyword);
+    e.preventDefault();
+
+  
+  }
   
   return (
     <nav className="navbar">
@@ -25,8 +31,11 @@ function Navbar() {
 
       {/* search box */}
       <div className="navbar_search">
-        <input type="text" className="navbar_searchInput" />
-        <SearchIcon className="navbar_searchIcon" />
+        <input type="text" 
+              placeholder="Search your e-products here..."
+              onChange={(e)=>setKeyword(e.target.value)}
+              className="navbar_searchInput" />
+        <SearchIcon onClick={searchSubmitHandler} className="navbar_searchIcon" />
       </div>
 
       {/* 3 icon links + kart */}

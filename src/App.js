@@ -7,6 +7,9 @@ import Home from "./components/home/Home";
 import Checkout from "./components/checkout/Checkout"
 import Login from "./components/login/Login";
 import Products from "./components/Products/Products";
+import ProductDetail from "./components/productDetail/ProductDetail";
+import Loader from "./components/loader/Loader";
+import Signup from "./components/signup/Signup";
 
 function App() {
   return (
@@ -28,6 +31,16 @@ function App() {
               </Route>
               
               <Route exact path="/products" element={<> <Navbar/> <Products/> </>}>
+          
+              </Route>
+
+ <Route exact path="/product/:id" element={<> <Navbar/> <ProductDetail /> </>}>
+          
+              </Route>
+              
+              
+              <Route exact path="/signup" element={  <Signup /> }>
+
           
               </Route>
 

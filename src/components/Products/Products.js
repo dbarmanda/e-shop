@@ -4,24 +4,33 @@ import bannerImg from "./banner.jpg"
 import Product from '../product/Product'
 import MetaData from '../MetaData';
 import { useDispatch, useSelector } from 'react-redux';
-import { getProduct } from '../../state/actions/productAction';
+import { clearErrors, getProducts } from '../../state/actions/productAction';
 import Loader from '../loader/Loader';
 
-
+import { useAlert } from 'react-alert';
 
 function Products() {
+
+    const alert = useAlert();
 
     const dispatch = useDispatch();
     
     const {loading, error, products, productsCount} = useSelector(
-        (state)=>state.products.products
+        (state)=>state.products
     )
 
     // console.log(products)
-    console.log(products)
+    // console.log(products)
     useEffect(() => {
-       dispatch(getProduct());
-    }, [dispatch])
+
+        if(error){
+            alert.error(error);
+            dispatch(clearErrors);
+          }
+
+
+       dispatch(getProducts());
+    }, [dispatch, error])
 
     return (
         <>
@@ -37,7 +46,7 @@ function Products() {
                 {products && products.map(product=>(
 
                     <Product
-                    key={product.id}
+                    key={product._id}
                     
                  id={product._id}
                  title={product.name}

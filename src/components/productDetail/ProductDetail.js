@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import "./productDetail.css";
 
 import { useParams } from "react-router-dom";
@@ -23,12 +23,18 @@ import Loader from "../loader/Loader";
 
 //for error
 import { useAlert } from "react-alert"
+import {addItemsToCart} from "../../state/actions/cartAction"
+
+
+
 function ProductDetail() {
   const dispatch = useDispatch();
 
+  const [quantity, setQuantity] = useState(1);
+  const [open, setOpen] = useState(false)
   //alert
   const alert = useAlert();
-
+/********************************* */
   const { id } = useParams();
 
   // const {match} = useParams();
@@ -57,10 +63,24 @@ function ProductDetail() {
     precision: 0.5,
   };
 
-  const addToCartHandler = () => {};
+  const addToCartHandler = () => {
+    console.log("hello adding to cart");
+    dispatch(addItemsToCart(id, quantity));
+    alert.success("Product added to your e-Cart")
 
-  const decreaseQuantity = () => {};
-  const increaseQuantity = () => {};
+
+  };
+
+  const decreaseQuantity = () => {
+    if(1 >= quantity) return ;
+    const qty = quantity -1;
+    setQuantity(qty);
+  };
+  const increaseQuantity = () => {
+    if(product.stock <= quantity) return;
+    const qty = quantity + 1;
+    setQuantity(qty);
+  };
 
   const submitReviewToggle = () => {};
 
@@ -99,7 +119,7 @@ function ProductDetail() {
               <div className="detailsBlock-3-1">
                 <div className="detailsBlock-3-1-1">
                   <button onClick={decreaseQuantity}>-</button>
-                  {/* <input readOnly type="number" value={quantity} /> */}
+                  <input readOnly type="number" value={quantity} />
                   <button onClick={increaseQuantity}>+</button>
                 </div>
                 <button
@@ -132,7 +152,7 @@ function ProductDetail() {
   
         <Dialog
           aria-labelledby="simple-dialog-title"
-          // open={open}
+          open={open}
           onClose={submitReviewToggle}
         >
           <DialogTitle>Submit Review</DialogTitle>

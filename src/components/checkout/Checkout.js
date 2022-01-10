@@ -1,11 +1,15 @@
 import React from "react";
-import { useSelector } from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
 import "./checkout.css";
 import ad from "./ad.jpg";
 import CheckoutProduct from "../checkout-product/CheckoutProduct";
 import Subtotal from "../subtotal/Subtotal";
 function Checkout() {
   //instead of useState take 'state' from 'redux'
+
+  const dispatch = useDispatch();
+  const {cartItems} = useSelector(state => state.cart);
+  console.log(cartItems);
 
   return (
     <div className="checkout">
@@ -17,6 +21,7 @@ function Checkout() {
       />
 
       {/* {basket.length === 0 ? ( */}
+      {!cartItems ? (
         <div className="checkout_empty">
           <img
             className="checkout_emptyImage"
@@ -28,31 +33,34 @@ function Checkout() {
             <small>Shop today's deals</small>
           </div>
         </div>
-      {/* ) : (
+
+
+      ) : (
         <div className="checkout_cart">
           <h2 className="checkout_cartTitle">Your Eshopping Cart</h2>
           {/* Listing all the checkout products i.e. basket items 
-          <hr />
+          <hr /> */}
 
-          {basket.map((product)=>{
+          {cartItems.map((item)=>{
               return <CheckoutProduct 
-                            key={product.id}
-                            id={product.id}
-                            image={product.image}
-                            price={product.price}
-                            title={product.title}
-                            rating={product.rating}
+                            key={item.product}
+                            id={item.product}
+                            image={item.image}
+                            price={item.price}
+                            name={item.name}
+                            rating={item.rating}
+                            quantity={item.quantity}
                         />;
           })}
         </div> 
-      )}*/}
+      )}
       </div>
 
-          {/* {basket.length > 0 && (
+          {cartItems && (
       <div className="checkout_right">
           <Subtotal/>
       </div>
-          )} */}
+          )}
     </div>
   );
 }

@@ -5,6 +5,7 @@
     position: sticky;
     top: 0;
     z-index: 100;
+    height: 70px;
 }
 
 .navbar_logo{
@@ -74,11 +75,25 @@
     color: red;
 }
 
+#speedDialAdmin{
+    position: relative;
+    top: 120px;
+}
+
+#speedDial{
+    position: relative;
+    top: 92px;
+}
+
 .navbar_kart{
     width: 2.8rem !important;
     height: 2rem !important;
     margin-right: 13px;
 
+}
+
+.MuiFab-primary{
+    background-color:  #5f7e71!important;
 }
 
 .navbar_basketCount{

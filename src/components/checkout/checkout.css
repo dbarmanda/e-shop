@@ -33,9 +33,12 @@
 }
 
 .checkout_cart{
-    background-color: white;
-    /* padding: 10px; */
+    box-sizing: border-box;
+    background-color: #e2e8eb;
+    padding: 15px;
     width: 100%;
+    border-radius: 3%;
+    
 }
 
 .checkout_cartTitle{

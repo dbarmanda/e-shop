@@ -1,5 +1,5 @@
 import React, {useRef, useState, useEffect} from "react";
-import { Link } from "react-router-dom";
+import { Link, Navigate } from "react-router-dom";
 import "./login.css";
 import Loader from "../loader/Loader"
 
@@ -35,7 +35,7 @@ function Login() {
 
     //login Logic
     dispatch(login(loginEmail, loginPassword));
-    navigate('/account');
+
   };
   
   const loginGoogle = (e)=> {
@@ -63,56 +63,65 @@ function Login() {
       alert.error(error);
       dispatch(clearErrors());
     }
+
+
+    if(isAuthenticated){
+      navigate("/account");
+    }
    
-  }, [dispatch, error,alert, navigate, isAuthenticated])
+  }, [navigate, isAuthenticated])
+  // }, [dispatch, error,alert, navigate, isAuthenticated])
  
 
 
   
 
   return (
+
     <>
-   {
-     loading ? <Loader/> : (
-      <>
-  
-      <div className="login_logo">
-        <Link to="/" >
-        <img
-          className="login_logoImg"
-          src="https://creativedok.com/content/uploads/2017/05/ESHOPPER.jpg"
-          alt=""
-        />
-        </Link>
-        </div>
-        <div className="login">
-        
-          <div className="login_container">
+      { loading ? <Loader/> : (
+
+        <>
           
-            <form className="loginForm" onSubmit={login}>
-            <h1>Sign In</h1>
-              <h5>E-mail</h5>
-              <input type="email" onChange={(e)=> setLoginEmail(e.target.value)} />
-              <h5>Password</h5>
-              <input type="password" onChange={(e)=>setLoginPassword(e.target.value)} />
-  
-              <button type="submit" className="login_signInBtn" onClick={loginUser}>Sign In</button>
-            </form>
-  
-            <button className="login_google" onClick={loginGoogle}>Login with Google</button>
-            <p>
-              By continuing, you agree to Eshoppers's Conditions of Use and
-              Privacy Notice. Happy e-shopping 🔥
-            </p>
-            <h5>Become a E-shopper Today:</h5>
-            <button onClick={register} className="login_registerBtn">Create your E-shoppers Account</button>
+          
+        <div className="login_logo">
+          <Link to="/" >
+          <img
+            className="login_logoImg"
+            src="https://creativedok.com/content/uploads/2017/05/ESHOPPER.jpg"
+            alt=""
+          />
+          </Link>
           </div>
-        </div>
-      </>
+          <div className="login">
+          
+            <div className="login_container">
+            
+              <form className="loginForm" onSubmit={login}>
+              <h1>Sign In</h1>
+                <h5>E-mail</h5>
+                <input type="email" onChange={(e)=> setLoginEmail(e.target.value)} />
+                <h5>Password</h5>
+                <input type="password" onChange={(e)=>setLoginPassword(e.target.value)} />
+
+                <button type="submit" className="login_signInBtn" onClick={loginUser}>Sign In</button>
+              </form>
+
+              <button className="login_google" onClick={loginGoogle}>Login with Google</button>
+              <p>
+                By continuing, you agree to Eshoppers's Conditions of Use and
+                Privacy Notice. Happy e-shopping 🔥
+              </p>
+              <h5>Become a E-shopper Today:</h5>
+              <button onClick={register} className="login_registerBtn">Create your E-shoppers Account</button>
+            </div>
+          </div>
+        </>
+      )}
+    </>
+
+ 
      )
    }
-   </>
-  );
-}
 
 export default Login;

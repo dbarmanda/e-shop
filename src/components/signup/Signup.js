@@ -6,7 +6,9 @@ import { useNavigate } from "react-router";
 
 import Loader from "../loader/Loader";
 
-import {clearErrors, register} from "../../state/actions/userAction"
+import {clearErrors, register} from "../../state/actions/userAction";
+
+import img from "./Profile.png"
 
 function Signup() {
 
@@ -14,9 +16,9 @@ function Signup() {
   const navigate = useNavigate();
 
 
-  const {loading} = useSelector(state => state.user)
+  const {loading, user} = useSelector(state => state.user)
 
-    const [user, setUser] = useState({
+    const [userT, setUserT] = useState({
         name: "",
         email: "",
         password: "",
@@ -24,18 +26,18 @@ function Signup() {
 
     console.log("2");
 
-    const {name, email, password} = user;
+    // const {name, email, password} = user;
 
     const [avatar, setAvatar] = useState();
-    const [avatarPreview, setAvatarPreview] = useState("./profile.png");
+    const [avatarPreview, setAvatarPreview] = useState(img);
 
     const registerUser = (e)=> {
       e.preventDefault();   //always in form to prevent refresh
       
       const newUser = {
-        name: user.name,
-        email: user.email,
-        password: user.password
+        name: userT.name,
+        email: userT.email,
+        password: userT.password
       };
 
       dispatch(register(newUser));
@@ -64,7 +66,7 @@ function Signup() {
             reader.readAsDataURL(e.target.files[0]);
 
         } else {
-            setUser({...user, [e.target.name]: e.target.value})
+            setUserT({...userT, [e.target.name]: e.target.value})
         }
       }
     return (
@@ -86,16 +88,16 @@ function Signup() {
                <form className="loginForm"  >
                <h1>Sign Up</h1>
                  <h5>Name</h5>
-                 <input type="text" name="name" required onChange={(e)=> setUser({...user, [e.target.name]: e.target.value})}/>
+                 <input type="text" name="name" required onChange={(e)=> setUserT({...userT, [e.target.name]: e.target.value})}/>
                  {/* <input type="text" required onChange={registerDataChange}/> */}
                  <h5>Email</h5>
-                 <input type="email" name="email" onChange={(e)=> setUser({...user, [e.target.name]: e.target.value})} required />
+                 <input type="email" name="email" onChange={(e)=> setUserT({...userT, [e.target.name]: e.target.value})} required />
                  <h5>Password</h5>
-                 <input type="password" name="password" required onChange={(e)=> setUser({...user, [e.target.name]: e.target.value})}/>
+                 <input type="password" name="password" required onChange={(e)=> setUserT({...userT, [e.target.name]: e.target.value})}/>
                  <h5>Confirm-Password</h5>
-                 <input type="password" required onChange={(e)=> setUser({...user, [e.target.name]: e.target.value})}/>
+                 <input type="password" required onChange={(e)=> setUserT({...userT, [e.target.name]: e.target.value})}/>
  
-                 <h5>Select profile Image</h5>
+                 {/* <h5>Select profile Image</h5>
                  <div className="registerImage">
                      <img src="" alt="" />
                      <input 
@@ -105,7 +107,7 @@ function Signup() {
                          onChange={registerDataChange}
                          />
  
-                 </div>
+                 </div> */}
      
                  <button type="submit" className="login_signInBtn" onClick={registerUser}>Register Account</button>
                </form>

@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import "./App.css";
 
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
@@ -10,8 +10,26 @@ import Products from "./components/Products/Products";
 import ProductDetail from "./components/productDetail/ProductDetail";
 import Loader from "./components/loader/Loader";
 import Signup from "./components/signup/Signup";
+import Profile from "./components/login/Profile";
+
+//Loading user
+import { loadUser } from "./state/actions/userAction";
+import { useDispatch, useSelector } from "react-redux";
+
+//Protected User(problem: once we reload the page component loads earlier than the state thus throws error.. solution create a protectedRoute )
+import ProtectedRoute from "./components/Route/ProtectedRoute"
 
 function App() {
+
+  const dispatch = useDispatch();
+
+ const {isAuthenticated} = useSelector(state => state.user);
+
+  useEffect(() => {
+    if(localStorage.getItem('token')){
+      dispatch(loadUser());
+    }
+  }, [])
   return (
     <Router>
       <div className="app">
@@ -43,6 +61,14 @@ function App() {
 
           
               </Route>
+
+
+              {/* ProtectedRoutes handling  */}
+              <Route element={ <ProtectedRoute />} >
+                <Route exact path="/account" element={<> <Navbar/> <Profile/> </>} />
+                
+              </Route>
+
 
               
         </Routes>

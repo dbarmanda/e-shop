@@ -6,7 +6,7 @@ import "./checkoutProduct.css";
 
 
 function CheckoutProduct(props) {
-    const {id, title, price, rating, image} = props;
+    const {id, name, price, rating, image} = props;
 
     const removeFromCart = (e)=>{
         e.preventDefault();
@@ -18,7 +18,7 @@ function CheckoutProduct(props) {
             <img className="checkoutProduct_image" src={image} alt="product" />
 
             <div className="checkoutProduct_info">
-                <p className="checkoutProduct_Title">{title}</p>
+                <p className="checkoutProduct_Title">{name}</p>
                 <p className="checkoutProduct_price">
                     <small>Rs. </small>
                     <strong>{price}</strong>

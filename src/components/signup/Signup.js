@@ -1,4 +1,4 @@
-import React, {useRef, useState} from "react";
+import React, {useRef, useState, useEffect} from "react";
 import { Link } from "react-router-dom";
 import {useDispatch, useSelector} from "react-redux";
 import "./signup.css";
@@ -16,7 +16,7 @@ function Signup() {
   const navigate = useNavigate();
 
 
-  const {loading, user} = useSelector(state => state.user)
+  const {loading, user, isAuthenticated} = useSelector(state => state.user)
 
     const [userT, setUserT] = useState({
         name: "",
@@ -69,6 +69,12 @@ function Signup() {
             setUserT({...userT, [e.target.name]: e.target.value})
         }
       }
+
+      useEffect(() => {
+        if(isAuthenticated === true){   // ---> might solve the problem
+          navigate("/account")
+        }
+      }, [isAuthenticated])
     return (
       <>
     

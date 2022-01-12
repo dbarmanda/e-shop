@@ -4,20 +4,19 @@ import { useDispatch } from 'react-redux'
 import "./subtotal.css"
 import CurrencyFormat from 'react-currency-format'
 import { useSelector } from 'react-redux'
+import { useNavigate } from 'react-router'
 function Subtotal() {
 
     const dispatch = useDispatch();
     const {cartItems} = useSelector(state => state.cart)
 
     const [total, setTotal] = useState(0);
+    const navigate = useNavigate();
 
-    const getCartTotal = ()=> {
-        let sum = 0;
-        cartItems.map((item)=> {
-            sum += item.price;
-        })
-        setTotal(sum);
-    }
+    //Procedding to checkout
+   const checkoutHandler = () => {
+       navigate("/login?redirect=shipping");
+   }
 
     return (
         // <div className="subtotal">
@@ -37,11 +36,13 @@ function Subtotal() {
                     </>
                 )}
                 decimalScale={2}
-                value={getCartTotal()}
+                value={cartItems.reduce(
+                    (acc, item) => acc + item.quantity * item.price, 0
+                )}
                 displayType={"text"}
                 thousandSeparator={true}
                 prefix={"Rs"}/>
-            <button>Proceed To Checkout</button>
+            <button onClick={checkoutHandler}>Proceed To Checkout</button>
 
         </div>
        

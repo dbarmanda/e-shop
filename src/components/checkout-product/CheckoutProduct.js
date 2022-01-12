@@ -6,10 +6,11 @@ import "./checkoutProduct.css";
 
 
 function CheckoutProduct(props) {
-    const {id, name, price, rating, image} = props;
+    const {id, name, price, rating, image, deleteCartItem} = props;
 
     const removeFromCart = (e)=>{
         e.preventDefault();
+        deleteCartItem(id);
     }
     
     return (

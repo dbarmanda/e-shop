@@ -29,6 +29,8 @@ function Navbar() {
   const [keyword, setKeyword] = useState("");
   const { isAuthenticated, user, loading } = useSelector((state) => state.user);
 
+  const {cartItems} = useSelector(state => state.cart)
+
   console.log(user);
   //for logout-menu
 
@@ -155,7 +157,7 @@ function Navbar() {
           {/* shopping icon  */}
           <LocalGroceryStoreIcon className="navbar_kart" />
           {/* no.of items in basket  */}
-          <span className="navbar_optionTwo navbar_basketCount">red</span>
+          <span className="navbar_optionTwo navbar_basketCount">{cartItems.length}</span>
         </div>
       </Link>
 
@@ -177,6 +179,7 @@ function Navbar() {
  {options.map((item)=>(
           <SpeedDialAction key={item.name} icon={item.icon} tooltipTitle={item.name}
             onClick={item.func}
+            tooltipOpen={window.innerWidth <= 600 ? true: false}
             ></SpeedDialAction>
         ))} 
 

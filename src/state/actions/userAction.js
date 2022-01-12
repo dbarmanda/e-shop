@@ -61,12 +61,13 @@ export const register = (userData) => async(dispatch)=>{
          dispatch({type: REGISTER_USER_REQUEST});
 
          const config = {headers: {"Content-Type": "application/json",
-        //  "Access-Control-Allow-Origin": "*",
+         "Access-Control-Allow-Origin": "*",
         }};
 
          const {data} = await axios.post(`/api/v1/register`,userData, config);
 
         //  console.log(data);
+        localStorage.setItem("token", data.token);
 
          dispatch({type: REGISTER_USER_SUCCESS, payload: data.user});
         

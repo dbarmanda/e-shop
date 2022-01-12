@@ -13,6 +13,11 @@ import {login, clearErrors} from "../../state/actions/userAction";
 
 import {useAlert} from "react-alert"
 
+import MetaData from "../MetaData";
+
+
+
+
 function Login() {
 
   const navigate = useNavigate();
@@ -21,6 +26,7 @@ function Login() {
   //making alerts
   const alert = useAlert();
  
+  console.log("login loaded...")
  
  
   //getting inputs
@@ -29,6 +35,10 @@ function Login() {
 
   //getting redux-state
   const {error, loading, isAuthenticated} = useSelector(state => state.user)
+
+  //lets make a redirect route using "location.search"
+  const redirect = window.location.search ? window.location.search.split("=").at(1): "/account";
+  console.log(redirect);
 
   const loginUser = (e)=> {
     e.preventDefault();   //always in form to prevent refresh
@@ -66,10 +76,10 @@ function Login() {
 
 
     if(isAuthenticated){
-      navigate("/account");
+      navigate(`/${redirect}`);
     }
    
-  }, [navigate, isAuthenticated])
+  }, [navigate, isAuthenticated, redirect])
   // }, [dispatch, error,alert, navigate, isAuthenticated])
  
 
@@ -82,7 +92,7 @@ function Login() {
       { loading ? <Loader/> : (
 
         <>
-          
+          <MetaData title="eShop login"/>
           
         <div className="login_logo">
           <Link to="/" >

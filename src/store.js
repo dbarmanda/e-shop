@@ -5,6 +5,7 @@ import { cartReducer } from "./state/reducers/cartReducer";
 
   import {productsReducer, productDetailsReducer} from "./state/reducers/productReducer";
 import { userReducer } from "./state/reducers/userReducer";
+import {myOrdersReducer, newOrderReducer} from "./state/reducers/orderReducer"
 
 export default function configureAppStore() {
 
@@ -13,7 +14,11 @@ export default function configureAppStore() {
     cart: {
       cartItems: localStorage.getItem("cartItems")
         ? JSON.parse(localStorage.getItem("cartItems"))
-          : []
+          : [] ,
+
+      shippingInfo: localStorage.getItem("shippingInfo") ?
+      JSON.parse(localStorage.getItem("cartItems")) :
+      {}
     }
   }
 
@@ -23,6 +28,8 @@ export default function configureAppStore() {
         productDetails: productDetailsReducer,
         user: userReducer,
         cart: cartReducer,
+        newOrder: newOrderReducer,
+        myOrders: myOrdersReducer,
     },    
     middleware: (getDefaultMiddleware) =>getDefaultMiddleware(),
     preloadedState,

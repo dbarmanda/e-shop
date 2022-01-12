@@ -14,7 +14,7 @@ const ProtectedRoute = () => {
     
     return loading? <Loader/> : (isAuthenticated ? <Outlet/> : <Login/>);
         
-       
+       //set true of false directly to check absolutenesssssss 11: 42:29
     
 }
 
